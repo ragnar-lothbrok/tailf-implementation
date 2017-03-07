@@ -5,24 +5,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.browserstack.service.api.ITailFileService;
+import com.browserstack.service.api.ICommandService;
 
-@Controller
-public class TailFileController {
+/**
+ * This contains end point which will send data.
+ * @author raghunandan.gupta
+ *
+ */
+@RestController
+public class TailCommandController {
 
 	@Autowired
-	private ITailFileService tailFileService;
+	private ICommandService commandService;
 
-	@RequestMapping(value = "/log", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
-	@ResponseBody
+	@RequestMapping(value = "/showLog", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
 	public String getLastLines(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-		return tailFileService.getTailedLines();
+		return commandService.executeCommand();
 	}
-	
 
 }
